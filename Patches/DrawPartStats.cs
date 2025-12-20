@@ -26,7 +26,7 @@ namespace PartMenuAPI.Patches
 
                 // call Draw on the modules attached to the current instance.
                 foreach (var module in modules)
-                    module.Draw(allParts, drawer, settings);
+                    module.Draw(allParts[0], allParts, drawer, settings);
             }
             catch (Exception ex)
             {
