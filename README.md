@@ -7,6 +7,20 @@ Why this exists
 - The engine's `Part.DrawPartStats(Part[] allParts, StatsMenu drawer, PartDrawSettings settings)` method is called for each part. Many modders need access to the entire `allParts` array (to aggregate, compare or group modules across parts), but the engine `I_PartMenu.Draw` signature does not provide that array.
 - `PartMenuAPI` exposes a single interface and a Harmony postfix that invokes `Draw(allParts, drawer, settings)` for components implementing the interface. This avoids every mod writing its own patch and centralises the integration point.
 
+For reference, I_PartMenu.Draw is defined as:
+
+```csharp
+namespace SFS.Parts.Modules
+{
+    public interface I_PartMenu
+    {
+        void Draw(StatsMenu drawer, PartDrawSettings settings);
+    }
+}
+```
+
+This forces modders to manually find and aggregate `allParts` themselves, which is a hassle as they must check what parts are selected in the current context.
+
 What it provides
 
 - `PartMenuAPI.IPartMenuAllParts` interface modders implement on a `MonoBehaviour` attached to a `Part` prefab or instance:
@@ -21,7 +35,9 @@ namespace PartMenuAPI
 }
 ```
 
-- A small Harmony postfix on `Part.DrawPartStats` which collects implementors and calls `Draw(allParts, drawer, settings)` on components attached to the current `Part` instance.
+- A small Harmony postfix on `Part.DrawPartStats` which collects implementors and calls `Draw(allParts[0], allParts, drawer, settings)` on components attached to the current `Part` instance.
+
+PS: `allParts[0]` is passed as the `representative` parameter for convenience and to replicate the game's default behaviour, as in the build menu the default behaviour is to show the first selected part as a representative for all others, for example when opening the part stats menu on the right side of the screen.
 
 Installation
 
