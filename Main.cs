@@ -18,6 +18,11 @@ namespace PartMenuAPI
             Debug.Log($"[{ModNameID}] Early_Load completed, patches applied");
         }
 
+        public override void Load()
+        {
+            // ...
+        }
+
         private readonly Harmony patcher = new Harmony("com.mori.partmenuapi");
 
     }

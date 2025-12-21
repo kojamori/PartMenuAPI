@@ -15,16 +15,10 @@ namespace PartMenuAPI.Patches
         {
             try
             {
-                // collect implementors attached to this instance
-                IPartMenuAllParts[] modules = part.GetComponents<Component>().OfType<IPartMenuAllParts>().ToArray();
+                IPartMenuAllParts[] modules = part.GetComponents<IPartMenuAllParts>();
                 if (modules.Length == 0)
                     return;
 
-                // check whether there is at least one implementor across allParts
-                if (allParts == null || Array.IndexOf(allParts, part) == -1)
-                    Debug.LogWarning("[PartMenuAPI] Unexpected: allParts does not contain the current part instance.");
-
-                // call Draw on the modules attached to the current instance.
                 foreach (var module in modules)
                     module.Draw(allParts[0], allParts, drawer, settings);
             }
