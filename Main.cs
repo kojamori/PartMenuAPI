@@ -15,7 +15,7 @@ namespace PartMenuAPI
         public override string ModNameID => "partmenuapi";
         public override string DisplayName => "PartMenuAPI";
         public override string Author => "Koja Mori";
-        public override string MinimumGameVersionNecessary => "1.5.10";
+        public override string MinimumGameVersionNecessary => "1.6.00.0";
         public override string ModVersion => "1.0.0";
         public override string Description => "An API for creating custom part menu modules.";
         public override Dictionary<string, string> Dependencies => null;
