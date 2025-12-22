@@ -88,4 +88,4 @@ Contributing
 
 License
 
-- MIT License. See LICENSE file for details.
+- GNU General Public License. See LICENSE file for details.
